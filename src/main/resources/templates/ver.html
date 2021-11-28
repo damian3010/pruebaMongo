@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${titulo}"></title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            
+
+            table, td {
+                border: 1px solid #ccc;
+            }
+            th{
+                background-color:#006600;
+                color:#fff;
+            }
+             thead tr{height: 30px;}
+           tbody tr{height: 50px;}
+        </style>
+    </head>
+    <body>
+        <h1 th:text="${titulo}"></h1>
+
+        <div th:if="${clientes!=null and !clientes.empty}">
+        
+        <table >
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nonbre</th>
+                    <th>codigo</th>
+                    <th>fecha_inicial</th>
+                    <th>fecha_final</th>
+                    <th>acronimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente: ${clientes}" > 
+                    <td th:text="${cliente.id}" />
+                    <td th:text="${cliente.nombre}" />
+                    <td th:text="${cliente.code}" />
+                    <td th:text="${#dates.format(cliente.fecha_inicial, 'dd-MM-yyyy')}" />
+                    <td th:text="${#dates.format(cliente.fecha_final, 'dd-MM-yyyy')}" />
+                    <td th:text="${cliente.acronimo}" />
+                </tr>
+            </tbody>
+
+        </table>
+      </div>  
+        
+         <h1 th:text="${titulo2}"></h1>
+  
+      <div th:if="${usuarios!=null and !usuarios.empty}">
+        
+        <table >
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>password</th>
+                    <th>id_cliente</th>
+                    <th>nombre_cliente</th>
+                    <th>code_cliente</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario: ${usuarios}" > 
+                    <td th:text="${usuario.id}" />
+                    <td th:text="${usuario.username}" />
+                    <td th:text="${usuario.password}" />
+                    <td th:text="${usuario.id_cliente}" />
+                     <td th:text="${usuario.cliente.nombre}" />
+                     <td th:text="${usuario.cliente.code}" />
+                     
+                </tr>
+            </tbody>
+
+        </table>
+      </div> 
+        
+       
+        
+        <div th:if="${clientes==null or clientes.empty}">
+           <h1> Error de conexion</h1>
+           <p th:text="${mesage}"></p>
+        </div>
+    </body>
+</html>
